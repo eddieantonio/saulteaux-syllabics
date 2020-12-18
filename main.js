@@ -16,8 +16,8 @@
  */
 
 (function () {
-  var CreeSROSyllabics = require('cree-sro-syllabics');
-  window.CREE_SRO_SYLLABICS_VERSION = CreeSROSyllabics.version.toString();
+  var SaulteauxSyllabics = require('./src/saulteaux-syllabics.js');
+  window.CONVERTER_VERSION = SaulteauxSyllabics.version.toString();
 
   var dirty = null;
   document.addEventListener('DOMContentLoaded', function () {
@@ -146,14 +146,14 @@
 
     function sendSRO() {
       send({
-        syl: CreeSROSyllabics.sro2syllabics(sroBox.value, {
+        syl: SaulteauxSyllabics.sro2syllabics(sroBox.value, {
           finalHK: getHKStyle()
         })
       });
     }
 
     function sendSyllabics() {
-      var sro = CreeSROSyllabics.syllabics2sro(sylBox.value, {
+      var sro = SaulteauxSyllabics.syllabics2sro(sylBox.value, {
         longAccents: shouldProduceMacrons() ? 'macrons'  : 'circumflexes'
       });
       send({ sro: sro });
