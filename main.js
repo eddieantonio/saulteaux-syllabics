@@ -24,8 +24,6 @@
     var sroBox = document.getElementById('sro');
     var sylBox = document.getElementById('syl');
     var doubledVowelCheckbox = document.getElementsByName('double-vowels')[0];
-    var macronButtons = document.getElementsByName('macrons');
-    var hkFinalButtons = document.getElementsByName('final-hk');
 
     var previousSROText = sroBox.value;
 
@@ -97,16 +95,6 @@
     sroBox.addEventListener('input', sendSROFromEvent);
     sylBox.addEventListener('input', sendSyllabicsFromEvent);
 
-    // Recompute the SRO when the macron/circumflex switch is clicked
-    for (var i = 0; i < macronButtons.length; i++) {
-      macronButtons[i].addEventListener('input', sendSyllabicsFromEvent);
-    }
-
-    // Recompute the syllabicsv when the final HK is toggled
-    for (var i = 0; i < hkFinalButtons.length; i++) {
-      hkFinalButtons[i].addEventListener('input', sendSROFromEvent);
-    }
-
     // Change the values when the /#!hash changes.
     window.onhashchange = function () {
       var settingsBox;
@@ -133,15 +121,14 @@
     }
 
     function shouldProduceMacrons() {
-      var button = document.querySelector('input[name="macrons"]:checked');
-      return button.value == 'true';
+      // This is a rememant from the Plains Cree convertert; while in Cree,
+      // this is an option, it's always macrons for Saulteaux!
+      return true;
     }
 
     function getHKStyle() {
-      var button = document.querySelector('input[name="final-hk"]:checked');
-      var value = button.value
-      console.assert(value === "x" || value === "hk", "unexpected value: " + value);
-      return value;
+      // always use the «ᕽ» syllabic.
+      return "x";
     }
 
     function sendSRO() {
