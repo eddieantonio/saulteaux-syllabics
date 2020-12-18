@@ -11,12 +11,12 @@ describe('Basic functionality', function () {
 
     cy.get('textarea#sro')
       .clear()
-      .type("Ahpī kā-mōškahank ahki šikwa ānīn Nēnapoš kā-iši-kīhtwāmi-ošihtōt");
+      .type("Ahpī kā-mōškahank ahki šikwa ānīn Nēnapohš kā-iši-kīhtwāmi-ošihtōt");
 
     cy.get('textarea#syl')
       .invoke('val')
       .should('equal',
-      `ᐊᐦᐲ ᑳ${NNBSP}ᒨᐡᑲᐦᐊᐣᐠ ᐊᐦᑭ ᔒᐃᑿ ᐋᓃᐣ ᓀᓇᐳᐡ ᑳ${NNBSP}ᐃᔒ${NNBSP}ᑮᐦᑤᒥ ᐅᔑᐃᐦᑑᐟ`);
+      `ᐊᐦᐲ ᑳ${NNBSP}ᒨᐡᑲᐦᐊᐣᐠ ᐊᐦᑭ ᔑᑿ ᐋᓃᐣ ᓀᓇᐳᐦᐡ ᑳ${NNBSP}ᐃᔑ${NNBSP}ᑮᐦᑤᒥ${NNBSP}ᐅᔑᐦᑑᐟ`);
   });
 
   it.skip('transcribes syllabics to SRO', function () {
