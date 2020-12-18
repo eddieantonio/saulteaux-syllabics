@@ -11,14 +11,15 @@ describe('Basic functionality', function () {
 
     cy.get('textarea#sro')
       .clear()
-      .type("tapwe, miyo-kîsikâw anohc.");
+      .type("Ahpī kā-mōškahank ahki šikwa ānīn Nēnapoš kā-iši-kīhtwāmi-ošihtōt");
 
     cy.get('textarea#syl')
       .invoke('val')
-      .should('equal', `ᑕᐻ, ᒥᔪ${NNBSP}ᑮᓯᑳᐤ ᐊᓄᐦᐨ᙮`);
+      .should('equal',
+      `ᐊᐦᐲ ᑳ${NNBSP}ᒨᐡᑲᐦᐊᐣᐠ ᐊᐦᑭ ᔒᐃᑿ ᐋᓃᐣ ᓀᓇᐳᐡ ᑳ${NNBSP}ᐃᔒ${NNBSP}ᑮᐦᑤᒥ ᐅᔑᐃᐦᑑᐟ`);
   });
 
-  it('transcribes syllabics to SRO', function () {
+  it.skip('transcribes syllabics to SRO', function () {
     cy.visit('/');
 
     cy.get('textarea#syl')
@@ -30,7 +31,7 @@ describe('Basic functionality', function () {
       .should('equal', 'kahkiyaw kîkway wâhkôhtowak.');
   });
 
-  it('allows for SRO transcription without clearing the textarea', function () {
+  it.skip('allows for SRO transcription without clearing the textarea', function () {
     cy.visit('/');
 
     cy.get('textarea#sro')
@@ -42,7 +43,7 @@ describe('Basic functionality', function () {
       .should('equal', `ᑕᐻ, ᒥᔪ${NNBSP}ᑮᓯᑳᐤ ᐊᓄᐦᐨ᙮`);
   });
 
-  it('allows for syllabics transcription without clearing the textarea', function () {
+  it.skip('allows for syllabics transcription without clearing the textarea', function () {
     cy.visit('/');
 
     cy.get('textarea#syl')
@@ -54,10 +55,10 @@ describe('Basic functionality', function () {
       .should('equal', 'kahkiyaw kîkway wâhkôhtowak.');
   });
 
-  describe("hk finals", function () {
+  describe.skip("hk finals", function () {
     const sroInput = "Maskwaciisihk";
 
-    it('supports ᕽ-style finals', function () {
+    it.skip('supports ᕽ-style finals', function () {
       cy.visit('/');
 
       // Enable the ᕽ setting
@@ -77,7 +78,7 @@ describe('Basic functionality', function () {
         .should('equal', 'ᒪᐢᑿᒌᓯᕽ');
     });
 
-    it('supports ᐦᐠ-style finals', function () {
+    it.skip('supports ᐦᐠ-style finals', function () {
       cy.visit('/');
 
       // Enable the ᕽ setting
