@@ -107,6 +107,18 @@ fieldset > label {
     display: inline-block;
 }
 
+main > header {
+  margin-bottom: 1.5rem;
+}
+
+header > h1 {
+    margin-bottom: 0;
+}
+
+h1 + [role=doc-subtitle] {
+    margin-top: .25em;
+}
+
 /* Mobile-S size: max-width: 320px; */
 /* Mobile-M size: */
 @media (max-width: 375px) {

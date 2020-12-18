@@ -7,7 +7,7 @@ describe('Double typing for long vowels', function () {
     cy.unregisterServiceWorkers()
   })
 
-  it('should work by typing the same vowel twice', function () {
+  it.skip('should work by typing the same vowel twice', function () {
     cy.visit('/');
 
     cy.get('textarea#sro')
@@ -26,7 +26,7 @@ describe('Double typing for long vowels', function () {
       .should('contain', 'êtî nîya, êkwa ôhô nicîhkêyimâw.');
   });
 
-  it('supports macrons and circumflexes', function () {
+  it.skip('supports macrons and circumflexes', function () {
     const input = 'eetii niiya, eekwa oohoo niciihkeeyimaaw.';
     const outputMacrons = 'ētī nīya, ēkwa ōhō nicīhkēyimāw.';
     const outputCircumflexes = 'êtî nîya, êkwa ôhô nicîhkêyimâw.';
@@ -65,7 +65,7 @@ describe('Double typing for long vowels', function () {
       .should('contain', outputCircumflexes);
   });
 
-  it('should not affect pasted text', function () {
+  it.skip('should not affect pasted text', function () {
     cy.visit('/');
 
     cy.get('textarea#sro').as('sro');
@@ -89,7 +89,7 @@ describe('Double typing for long vowels', function () {
       .should('contain', insertedText);
   });
 
-  it('can be disabled', function () {
+  it.skip('can be disabled', function () {
     cy.visit('/');
 
     cy.get('[data-cy="option-double-vowels"]').as('checkbox');
