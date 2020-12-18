@@ -2,19 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Cree SRO ⇔ syllabics converter</title>
+  <title>Saulteaux syllabics converter</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="styles.css" media="all">
   <script src="./main.js"></script>
-  <meta property="og:title" content="Cree SRO/syllabics converter">
+  <meta property="og:title" content="Saulteaux syllabics converter">
   <meta name="twitter:card" content="summary">
-  <meta name="description" content="Convert between Western Cree syllabics and SRO (Standard Roman Orthography)">
-  <meta property="og:description" content="Convert between Western Cree syllabics and SRO (Standard Roman Orthography)">
-  <meta property="og:url" content="https://syllabics.app/">
+  <meta name="description" content="Convert between Saulteaux syllabics and SRO (Standard Roman Orthography)">
+  <meta property="og:description" content="Convert between Saulteaux syllabics and SRO (Standard Roman Orthography)">
+  <meta property="og:url" content="https://saulteaux.syllabics.app/">
   <meta property="og:image" content="img/favicon-512.png">
-  <meta name="author" content="Eddie Antonio Santos, eddie.antonio.santos+syllabics@gmail.com">
+  <meta name="author" content="Eddie Antonio Santos, easantos+syllabics@ualberta.ca">
   <meta name="twitter:creator" content="@_eddieantonio">
-  <meta name="keywords" content="syllabics, nêhiyawêwin, nīhithawīwin, nêhinawêwin, Cree, SRO, convert, transliterate">
+  <meta name="keywords" content="syllabics, saulteaux, nahkawēmowin, nahkawēwin, anihšināpēmowin, western, plains, objibwe, anishinaabemowin, SRO, convert, transliterate">
   <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
   <link rel="icon" type="image/png" href="img/favicon-16.png" sizes="16x16">
   <link rel="icon" type="image/png" href="img/favicon-32.png" sizes="32x32">
@@ -27,17 +27,21 @@
 </head>
 <body>
   <main>
-    <h1>Cree <span class="hide-phone">SRO ⇔ </span>syllabics converter</h1>
+    <header>
+      <h1>Saulteaux syllabics converter</h1>
+      <p role="doc-subtitle">Convert to/from <abbr title="standard Roman orthography">SRO</abbr> and <span class="hide-phone">Saulteaux (Western Ojibwe/Anihšināpēmowin)</span> syllabics.</p>
+    </header>
+
     <form>
       <div class="box box-sro">
         <label for="sro"> SRO </label>
-        <textarea id="sro" name="sro" placeholder="tânisi. Type Cree (SRO) here!" autocorrect="off" autocapitalize="off" autofocus lang="cr" autocomplete="off" spellcheck="false"></textarea>
+        <textarea id="sro" name="sro" placeholder="ānīn, pōšō! Type SRO here!" autocorrect="off" autocapitalize="off" autofocus lang="oj" autocomplete="off" spellcheck="false"></textarea>
         <script>getDefaultTextareaValue('sro')</script>
       </div>
 
       <div class="box box-sro">
         <label for="syl"> Syllabics </label>
-        <textarea id="syl" name="syl" placeholder="ᑖᓂᓯ᙮ Type syllabics here!" lang="cr" autocomplete="off" spellcheck="false"></textarea>
+        <textarea id="syl" name="syl" placeholder="ᐋᓃᐣ, ᐴᔔ! Type syllabics here!" lang="oj" autocomplete="off" spellcheck="false"></textarea>
         <script>getDefaultTextareaValue('syl')</script>
       </div>
 
@@ -61,8 +65,8 @@
   <aside>
     <h2> What is this? </h2>
     <p> This is a <strong>standard Roman orthography (SRO)</strong>
-    to <strong>syllabics</strong> converter for <strong>Cree</strong>
-    (N-dialect, Th-dialect, and Y-dialect).
+    to <strong>syllabics</strong> converter for <strong>Saulteaux</strong>
+    (Anihšināpēmowin, Nakawēwin, Western Ojibwe, Plains Ojibwe).
 
     <h2> How to use the converter </h2>
 
@@ -73,29 +77,17 @@
     syllabics and back again.
 
     <p> Typing a vowel <strong>twice</strong> in SRO (e.g., ee, ii, oo, aa)
-    will convert it into a long vowel (ê, î, ô, â). You can turn this off in
+    will convert it into a long vowel (ē, ī, ō, ā). You can turn this off in
     the <a href="#settings">settings</a>.
-
-    <p> You can use circumflexes (âêîô) or macrons (āēīō). When
-    converting from syllabics to SRO, you can choose which to produce in the
-    <a href="#settings">settings</a>.
   </aside>
 
   <footer>
     <ul class="meta">
       <li>
-      <a href="https://www.npmjs.com/package/cree-sro-syllabics">
-          cree-sro-syllabics v<span id="library-version">unknown</span>
-      </a>
-      <li>
       Made with ❤︎ by <a href="https://github.com/eddieantonio">Eddie Antonio Santos</a>
       <li>
-      <a href="https://github.com/eddieantonio/syllabics.app">Open source</a>
+      <a href="https://github.com/eddieantonio/saulteaux-syllabics">Open source</a>
     </p>
-
-    <script>
-      document.getElementById('library-version').innerText = CONVERTER_VERSION;
-    </script>
   </footer>
   <script>
     if ('serviceWorker' in navigator) {
