@@ -51,9 +51,7 @@
   // Create the syllabics2sroLookup as the inverse of sro2syllabicsLookup
   const syllabics2sroLookup = (function () {
     const lookup = {}
-    // IE11 also doesn't do for-of, so I need for-in, with the
-    // ritual .hasOwnProperty() check :C
-    for (const sro of sro2syllabicsLookup) {
+    for (const sro of Object.keys(sro2syllabicsLookup)) {
       syl = sro2syllabicsLookup[sro]
       lookup[syl] = sro
     }
@@ -62,7 +60,7 @@
     const alternates = {
       'ᐝ': 'y', '᙮': '.', 'ᑦ': 'm', 'ᕁ': 'hk', 'ᕀ': 'y', '\u202f': '-'
     }
-    for (const syl of alternates) {
+    for (const syl of Object.keys(alternates)) {
       lookup[syl] = alternates[syl]
     }
     return lookup
