@@ -167,6 +167,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
+// TODO: this is dead code; it assumes the script will load as a render-blocking resource,
+// but this is no longer the case. need to update this to work with module-style scripts.
 globalThis.getDefaultTextareaValue = function (name) {
   const textarea = document.getElementById(name);
 
