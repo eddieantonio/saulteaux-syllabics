@@ -19,11 +19,21 @@ import SaulteauxSyllabics from './src/saulteaux-syllabics.js';
 
 globalThis.CONVERTER_VERSION = SaulteauxSyllabics.version.toString();
 
+const SUBSTITUTIONS = {
+  "ee": "ē",
+  "ii": "ī",
+  "aa": "ā",
+  "oo": "ō",
+  "sh": "š",
+}
+
+
 let dirty = null;
 document.addEventListener('DOMContentLoaded', function () {
   const sroBox = document.getElementById('sro');
   const sylBox = document.getElementById('syl');
-  const doubledVowelCheckbox = document.getElementsByName('double-vowels')[0];
+  // TODO: rename in HTML
+  const substitutionsCheckbox = document.getElementsByName('double-vowels')[0];
 
   let previousSROText = sroBox.value;
 
@@ -34,37 +44,33 @@ document.addEventListener('DOMContentLoaded', function () {
     sendSyllabics();
   }
 
-  // Add a long vowel when double-pressing a vowel.
+  // Add substitutions when substitutions are enabled
   sroBox.addEventListener('input', function (event) {
-    const newSROText = sroBox.value;
-    let differentAt;
-    let addedChar;
-    let commonPrefix;
-    let newString;
-
     // Obey settings on whether it should change.
-    if (!doubledVowelCheckbox.checked) {
+    if (!substitutionsCheckbox.checked) {
       return;
     }
 
+    const newSROText = sroBox.value;
+
     // Check if exactly one character has been ADDED.
-    // Only then can we check whether we want a long vowel.
+    // Only then can we check whether we want a substitution.
     if (newSROText.length === previousSROText.length + 1) {
-      differentAt = whereDiffer(previousSROText, newSROText);
-      console.assert(newSROText.substr(0, differentAt) ===
-                     previousSROText.substr(0, differentAt));
-      commonPrefix = previousSROText.substr(0, differentAt);
-      addedChar = newSROText[differentAt];
+      const differentAt = whereDiffer(previousSROText, newSROText);
+      const commonPrefix = previousSROText.substr(0, differentAt);
+      const previousChar = lastCharOf(commonPrefix);
+      const addedChar = newSROText[differentAt];
+      const pair = previousChar + addedChar;
 
       // Check if a vowel has been doubled.
-      if (isSROShortVowel(addedChar) && lastCharOf(commonPrefix) === addedChar) {
+      if (isSubstitution(pair)) {
         // Pretend we never typed the second vowel; instead, add the long
         // vowel to the buffer.
         event.preventDefault();
         // Construct new string by chopping off the short vowel from the
         // common prefix, and chopping off the end of the previous buffer.
-        newString = commonPrefix.substr(0, commonPrefix.length - 1)
-          + longVowelOf(addedChar)
+        const newString = commonPrefix.substr(0, commonPrefix.length - 1)
+          + SUBSTITUTIONS[pair]
           + previousSROText.substr(differentAt);
         previousSROText = event.target.value = newString;
         return;
@@ -80,7 +86,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function whereDiffer(prev, current) {
     let i;
-    console.assert(prev.length + 1 === current.length);
     for (i = 0; i < prev.length; i++) {
       if (prev[i] !== current[i]) {
         return i;
@@ -88,6 +93,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     // They must differ at the last position!
     return i;
+  }
+
+  function isSubstitution(string) {
+    return Object.hasOwn(SUBSTITUTIONS, string);
   }
 
   // Send the appropriate request when the user types or pastes into the SRO
@@ -133,23 +142,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function send(message) {
     updateBoxes(message);
-  }
-
-  // Return the long version of a short vowel.
-  function longVowelOf(vowel) {
-    const latinVowels = 'eioa';
-
-    const index = latinVowels.indexOf(vowel);
-    if (index < 0) {
-      throw new RangeError('Invalid long vowel: ' + vowel);
-    }
-
-    const accentedVowels = 'ēīōā';
-    return accentedVowels[index];
-  }
-
-  function isSROShortVowel(letter) {
-    return letter === 'e' || letter === 'i' || letter === 'o' || letter === 'a';
   }
 
   /**
