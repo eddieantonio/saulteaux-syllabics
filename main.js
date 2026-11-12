@@ -17,8 +17,7 @@
 
 import SaulteauxSyllabics from './src/saulteaux-syllabics.js';
 
-globalThis.CONVERTER_VERSION = SaulteauxSyllabics.version.toString();
-
+// Typing substitutions:
 const SUBSTITUTIONS = {
   "ee": "ē",
   "ii": "ī",
@@ -27,12 +26,10 @@ const SUBSTITUTIONS = {
   "sh": "š",
 }
 
-
 let dirty = null;
 document.addEventListener('DOMContentLoaded', function () {
   const sroBox = document.getElementById('sro');
   const sylBox = document.getElementById('syl');
-  // TODO: rename in HTML
   const substitutionsCheckbox = document.getElementsByName('substitutions')[0];
 
   let previousSROText = sroBox.value;

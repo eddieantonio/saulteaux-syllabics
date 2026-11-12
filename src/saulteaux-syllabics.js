@@ -18,14 +18,10 @@
 (function () {
   'use strict'
 
-  // EXPORT: version
-  const VERSION = '2026.11.6'
-
   // What functions and constants to export:
   const exports = {
     sro2syllabics: sro2syllabics,
     syllabics2sro: syllabics2sro,
-    version: VERSION
   }
 
   // ============================ Constants ============================ \\
