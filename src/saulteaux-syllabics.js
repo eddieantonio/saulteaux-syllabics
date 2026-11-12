@@ -30,10 +30,6 @@
 
   // ============================ Constants ============================ \\
 
-  // Default options for sro2syllabics() and syllabics2sro
-  const DEFAULT_SYLLABICS2SRO_OPTIONS = {
-    longAccents: 'circumflexes'
-  }
   const SEPARATOR = '\u202f' // U+202F NARROW NO-BREAK SPACE, preferred by Arok
 
   // Word and syllable matching regular expressions.
@@ -42,7 +38,7 @@
   // Since JavaScript engines I want to support (e.g., Safari, IE11) don't
   // support negative lookbehind, I capture the "lookbehind" in the word
   // pattern, only to glue it together again later.
-  const wordPattern = /(?:^|([^a-z\u0161\u00EA\u00EE\u00F4\u00E2\u0113\u012B'\u2019\u014D\u0101]))((?:[ptkcs\u0161]w|[ptkcs\u0161hmnwy]|)(?:[\u00EAioa\u00EE\u00F4\u00E2]|[e\u0113\u012B'\u2019\u014D\u0101])(?:(?:h[ptkcs\u0161]w?|\u0161[ptkc]w?|skw?|mpw?|n[tkcs\u0161]w?|[ptkcs\u0161hmn]w?|w)(?:[\u00EAioa\u00EE\u00F4\u00E2]|[e\u0113\u012B'\u2019\u014D\u0101]))*(?:h[ptkcs\u0161]|\u0161[ptkc]|mp|n[tkcs\u0161]|)(?:(?:h[ptkcs\u0161]|\u0161[ptkc]|mp|n[tkcs\u0161]|)?-(?:[ptkcs\u0161]w|[ptkcs\u0161hmnwy]|)(?:[\u00EAioa\u00EE\u00F4\u00E2]|[e\u0113\u012B'\u2019\u014D\u0101])(?:(?:h[ptkcs\u0161]w?|\u0161[ptkc]w?|skw?|mpw?|n[tkcs\u0161]w?|[ptkcs\u0161hmn]w?|w)(?:[\u00EAioa\u00EE\u00F4\u00E2]|[e\u0113\u012B'\u2019\u014D\u0101]))*(?:h[ptkcs\u0161]|\u0161[ptkc]|mp|n[tkcs\u0161]|))*)(?:(?=[^a-z\u0161\u00EAioa\u00EE\u00F4\u00E2e\u0113\u012B'\u2019\u014D\u0101])|$)/gi
+  const wordPattern = /(?:^|([^a-z\u0161\u00EA\u00EE\u00F4\u00E2\u0113\u012B'\u2019\u014D\u0101]))((?:[ptkcs\u0161]w|[ptkcs\u0161hmnwy]|)(?:[\u00EAioa\u00EE\u00F4\u00E2]|[e\u0113\u012B'\u2019\u014D\u0101])(?:(?:h[ptkcs\u0161]w?|\u0161[ptkc]w?|skw?|mpw?|n[tkcs\u0161]w?|[ptkcs\u0161hmn]w?|w)(?:[\u00EAioa\u00EE\u00F4\u00E2]|[e\u0113\u012B'\u2019\u014D\u0101]))*(?:[ptkcswy]|h[ptkcs\u0161]?|\u0161[ptkc]?|mp?|n[tkcs\u0161]?|)(?:(?:[ptkcswy]|h[ptkcs\u0161]?|\u0161[ptkc]?|mp?|n[tkcs\u0161]?|)?-(?:[ptkcs\u0161]w|[ptkcs\u0161hmnwy]|)(?:[\u00EAioa\u00EE\u00F4\u00E2]|[e\u0113\u012B'\u2019\u014D\u0101])(?:(?:h[ptkcs\u0161]w?|\u0161[ptkc]w?|skw?|mpw?|n[tkcs\u0161]w?|[ptkcs\u0161hmn]w?|w)(?:[\u00EAioa\u00EE\u00F4\u00E2]|[e\u0113\u012B'\u2019\u014D\u0101]))*(?:[ptkcswy]|h[ptkcs\u0161]?|\u0161[ptkc]?|mp?|n[tkcs\u0161]?|))*)(?:(?=[^a-z\u0161\u00EAioa\u00EE\u00F4\u00E2e\u0113\u012B'\u2019\u014D\u0101])|$)/gi
   const fullStopPattern = /([\u1400-\u167F])[.]|^[.]$/g
   const finalDotPattern = /([\u1401\u1403\u1404\u1405\u1406\u140A\u140B\u142F\u1431\u1432\u1433\u1434\u1438\u1439\u144C\u144E\u144F\u1450\u1451\u1455\u1456\u146B\u146D\u146E\u146F\u1470\u1472\u1473\u1489\u148B\u148C\u148D\u148E\u1490\u1491\u14A3\u14A5\u14A6\u14A7\u14A8\u14AA\u14AB\u14C0\u14C7\u14C8\u14ED\u14EF\u14F0\u14F1\u14F2\u14F4\u14F5\u1510\u1511\u1512\u1513\u1514\u1515\u1516\u1526\u1528\u1529\u152A\u152B\u152D\u152E])\u1427/g
 
@@ -52,7 +48,7 @@
   const syllabics2sroLookup = (function () {
     const lookup = {}
     for (const sro of Object.keys(sro2syllabicsLookup)) {
-      syl = sro2syllabicsLookup[sro]
+      const syl = sro2syllabicsLookup[sro]
       lookup[syl] = sro
     }
     // Add a few alternate and lookalike characters to the lookup, as well as
@@ -108,7 +104,6 @@
         let syllable = match[0]
         const onset = match[1]
         const vowel = match[2]
-        let nextSyllablePos
 
         if (onset !== undefined) {
           // When the onset matched, apply sandhi for Cw?-V → Cw?V
@@ -121,9 +116,9 @@
             syllable = syllable.substr(1);
           }
         }
-        nextSyllablePos = match[0].length
+        const nextSyllablePos = match[0].length
 
-        let syllabic = lookup[syllable]
+        const syllabic = lookup[syllable]
         parts.push(syllabic)
         toTranscribe = toTranscribe.slice(nextSyllablePos)
 
@@ -184,14 +179,14 @@
   }
 
   /**
-   * Converts a syllabic into its w-dotted equivilent.
+   * Converts a syllabic into its w-dotted equivalent.
    */
   function fixFinalDot (match) {
     return SYLLABIC_WITH_DOT[match[0]]
   }
 
   /**
-   * Returns a function that translates cooresponding code units from string 1
+   * Returns a function that translates corresponding code units from string 1
    * to string 2.
    * Like Unix tr(1).
    */

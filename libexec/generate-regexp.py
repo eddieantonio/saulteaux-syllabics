@@ -59,11 +59,12 @@ WORD_MEDIAL = r"""
 """
 
 WORD_FINAL = r"""
-    h[ptkcsš] | # -hC
-    š[ptkc] |   # -šC
-    mp |        # -mC
-    n[tkcsš] |  # -nC
-                # - (open syllable)
+    [ptkcswy] |  # -C
+    h[ptkcsš]? | # -hC
+    š[ptkc]? |   # -šC
+    mp? |        # -mC
+    n[tkcsš]? |  # -nC
+                 # - (open syllable)
 """
 
 # NOTE: VOWEL is defined way near the top of the file.
