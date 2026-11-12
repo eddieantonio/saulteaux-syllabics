@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const sroBox = document.getElementById('sro');
   const sylBox = document.getElementById('syl');
   // TODO: rename in HTML
-  const substitutionsCheckbox = document.getElementsByName('double-vowels')[0];
+  const substitutionsCheckbox = document.getElementsByName('substitutions')[0];
 
   let previousSROText = sroBox.value;
 
@@ -62,13 +62,11 @@ document.addEventListener('DOMContentLoaded', function () {
       const addedChar = newSROText[differentAt];
       const pair = previousChar + addedChar;
 
-      // Check if a vowel has been doubled.
       if (isSubstitution(pair)) {
-        // Pretend we never typed the second vowel; instead, add the long
-        // vowel to the buffer.
+        // Pretend we never typed the second character
         event.preventDefault();
-        // Construct new string by chopping off the short vowel from the
-        // common prefix, and chopping off the end of the previous buffer.
+        // Construct a new string by splicing the old prefix, the substitution,
+        // then the end of the previous buffer.
         const newString = commonPrefix.substr(0, commonPrefix.length - 1)
           + SUBSTITUTIONS[pair]
           + previousSROText.substr(differentAt);
