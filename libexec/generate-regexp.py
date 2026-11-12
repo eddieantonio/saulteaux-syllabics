@@ -101,8 +101,8 @@ WORD = rf"""
 """
 word_pattern = re.compile(WORD, re.IGNORECASE | re.VERBOSE)
 
-# This regex prevents matching EVERY period, instead only matching periods
-# after Cree words, or, as an exception, as the only item in a string.
+# This regex prevents matching EVERY period; instead, it only matching periods
+# after words, or, as an exception, as the only item in a string.
 full_stop_pattern = re.compile(
     r"""
     ([\u1400-\u167F])[.] |  # Match a full-stop after syllabics

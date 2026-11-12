@@ -17,32 +17,21 @@
 
 import SaulteauxSyllabics from './src/saulteaux-syllabics.js';
 
-globalThis.CONVERTER_VERSION = SaulteauxSyllabics.version.toString();
-
+// Typing substitutions:
 const SUBSTITUTIONS = {
   "ee": "ē",
   "ii": "ī",
   "aa": "ā",
   "oo": "ō",
   "sh": "š",
-}
+};
 
-
-let dirty = null;
 document.addEventListener('DOMContentLoaded', function () {
   const sroBox = document.getElementById('sro');
   const sylBox = document.getElementById('syl');
-  // TODO: rename in HTML
   const substitutionsCheckbox = document.getElementsByName('substitutions')[0];
 
   let previousSROText = sroBox.value;
-
-  // Convert "dirty" changes soon as the page is loaded.
-  if (dirty == 'sro') {
-    sendSRO();
-  } else if (dirty == 'syl') {
-    sendSyllabics();
-  }
 
   // Add substitutions when substitutions are enabled
   sroBox.addEventListener('input', function (event) {
@@ -104,19 +93,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Change the values when the /#!hash changes.
   globalThis.onhashchange = function () {
-    let settingsBox;
     // Open the settings box if navigated to.
     if (location.hash === '#settings') {
-      settingsBox = document.getElementById('settings');
+      const settingsBox = document.getElementById('settings');
       settingsBox.open = true;
-    }
-
-    const pairs = parseFragment();
-    updateBoxes(pairs);
-    if ('sro' in pairs) {
-      sendSRO();
-    } else if ('syl' in pairs) {
-      sendSyllabics();
     }
   };
 
@@ -143,48 +123,16 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /**
-   * Event hanlders that ignores the event
+   * Event handlers that ignores the event
    */
   function sendSROFromEvent(/* ignored: event */) {
     sendSRO();
   }
 
   /**
-   * Event hanlders that ignores the event
+   * Event handlers that ignores the event
    */
   function sendSyllabicsFromEvent(/* ignored: event */) {
     sendSyllabics();
   }
 });
-
-// TODO: this is dead code; it assumes the script will load as a render-blocking resource,
-// but this is no longer the case. need to update this to work with module-style scripts.
-globalThis.getDefaultTextareaValue = function (name) {
-  const textarea = document.getElementById(name);
-
-  if (name != 'sro' && name != 'syl') {
-    return;
-  }
-
-  const fragment = parseFragment();
-  if (fragment[name]) {
-    dirty = name;
-    textarea.value = fragment[name];
-  }
-};
-
-function parseFragment() {
-  const fragment = location.hash;
-  const pairsText = fragment.split('!', 2)[1];
-  if (!pairsText) {
-    return {};
-  }
-
-  const pairs = {};
-  pairsText.split(';').forEach(function (pair) {
-    const _pair = pair.split(':', 2), key = _pair[0], value = _pair[1];
-    pairs[key] = decodeURIComponent(value);
-  });
-
-  return pairs;
-}

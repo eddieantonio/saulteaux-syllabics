@@ -4,8 +4,7 @@ Syllabics.app
 ![End-to-end tests](https://github.com/eddieantonio/syllabics.app/workflows/End-to-end%20tests/badge.svg?branch=production)
 [![Cypress Recordings](https://img.shields.io/badge/cypress-recordings-1dbe89.svg)](https://dashboard.cypress.io/#/projects/addnr3/runs)
 
-Source code for the [syllabics.app][]. This is a Western Cree SRO to
-syllabics converter app, powered by [cree-sro-syllabics][].
+Source code for the [saulteaux.syllabics.app][]. This is a fork of [syllabics.app][].
 
 
 Develop
@@ -17,13 +16,13 @@ To develop, download dependencies with `npm` (or `yarn`):
 
 This app builds using [Parcel]. To build, use the following:
 
-    npx parcel build index.html
+    npm run build
 
 This bundles the site to `dist/`.
 
 When I'm developing, I use Parcel in serve mode:
 
-    npx parcel serve index.html
+    npm start
 
 This starts a development server at <http://localhost:1234/> that
 automatically reloads when files change.
@@ -60,23 +59,19 @@ Add tests to `cypress/integration/`. See Cypress's docs for more help.
 Deploy
 ------
 
-This app is deployed using [Now][]. Now should automatically deploy all
-pull requests, as well as the `production` branch. To run the build
-script run by Now, type the following:
+This app is deployed using [Vercel][]. Now should automatically deploy all
+pull requests, as well as the `production` branch. 
 
-    npm run now-build
-
-This will create a static site in `dist/`.
-
-[cree-sro-syllabics]: https://github.com/eddieantonio/cree-sro-syllabics.js
-[Now]: https://zeit.co/now
+[Vercel]: https://vercel.com/
 [Parcel]: https://parceljs.org/
+[saulteaux.syllabics.app]: https://saulteaux.syllabics.app/
 [syllabics.app]: https://syllabics.app/
 
 
 License
 -------
 
-Copyright © 2020 National Research Council Canada.
+Copyright © 2020 National Research Council Canada.<br/>
+Copyright © 2026 Eddie Antonio Santos.
 
 Licensed under the MIT license.
