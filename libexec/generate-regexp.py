@@ -54,8 +54,8 @@ WORD_MEDIAL = r"""
     skw? |              # -sC(w)-
     mpw? |              # -mC(w)-
     n[tkcsš]w? |        # -nC(w)-
-    [ptkcsšhmn]w? |     # -Cw-
-    w                   # -w-
+    [ptkcsšhmn]w? |     # -C(w)-
+    [yw]                # -C-
 """
 
 WORD_FINAL = r"""
