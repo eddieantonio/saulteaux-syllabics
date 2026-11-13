@@ -22,4 +22,10 @@ describe('Text substitutions', () => {
     // This is invalid SRO, so it will not be converted:
     cy.get('#syl').should('have.value', 'aaniin, pooshoo!')
   })
+
+  it('sets the cursor position in the right place', () => {
+    cy.visit('http://localhost:1234')
+    cy.get('#sro').type('anin, pōs!{moveToStart}{rightArrow}a{rightArrow}i{moveToEnd}{leftArrow}hoo')
+    cy.get('#sro').should('have.value', 'ānīn, pōšō!')
+  })
 })

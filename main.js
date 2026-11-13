@@ -54,12 +54,16 @@ document.addEventListener('DOMContentLoaded', function () {
       if (isSubstitution(pair)) {
         // Pretend we never typed the second character
         event.preventDefault();
+
         // Construct a new string by splicing the old prefix, the substitution,
         // then the end of the previous buffer.
         const newString = commonPrefix.substr(0, commonPrefix.length - 1)
           + SUBSTITUTIONS[pair]
           + previousSROText.substr(differentAt);
         previousSROText = event.target.value = newString;
+
+        // Move the selection to right after the substitution (or else it moves to the very end)
+        event.target.setSelectionRange(differentAt, differentAt)
         return;
       }
     }
