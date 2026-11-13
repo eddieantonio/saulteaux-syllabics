@@ -1,15 +1,14 @@
 {
   "name": "saulteaux.syllabics.app",
-  "version": "2026.11.12",
+  "version": "2026.11.13",
   "author": "Eddie Antonio Santos <hello@eddieantonio.ca>",
   "description": "Saulteaux SRO/Syllabics conversion app",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/eddieantonio/syllabics.app.git"
+    "url": "https://github.com/eddieantonio/saulteaux.syllabics.app.git"
   },
   "devDependencies": {
-    "@parcel/packager-raw-url": "^2.16.4",
     "ava": "^6.4.1",
     "cypress": "^16.3.0",
     "parcel": "^2.0.0"
