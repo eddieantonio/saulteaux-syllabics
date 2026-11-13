@@ -30,30 +30,27 @@ automatically reloads when files change.
 Test
 ----
 
-This project uses browser tests written in [Cypress][].
+This project has two kinds of tests:
 
-To install test dependencies, run:
+ - Unit tests, using [AVA][]
+ - End-to-end (E2E) tests using [Cypress][]
 
-    npm run install:test
+Run unit tests:
 
-This installs Cypress (very large dependency), and does **NOT** add it
-to `package-lock.json`.
+    npm test
 
-> **NOTE**: Cypress must NEVER be included in `package-lock.json`,
-> because its file size exceeds the limits of Now's free plan (100MiB per file
-> limit). Now will install everything in `package-lock.json`, which
-> includes Cypress. Cypress is never used, and it **breaks the Now
-> build**. As such, it must be installed separately, skipping
-> `package-lock.json`.
+Run E2E tests, make sure the server is running, then
 
-To interactively run tests, open Cypress:
+    npm run test:e2e
 
-    cypress open
+Note: this runs in Google Chrome by default.
 
-Add tests to `cypress/integration/`. See Cypress's docs for more help.
+To edit E2E tests interactively, use `cypress open`:
 
+    npx cypress open
 
 [Cypress]: https://www.cypress.io/
+[AVA]: https://github.com/avajs/ava
 
 
 Deploy
